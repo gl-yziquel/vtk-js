@@ -927,6 +927,10 @@ function vtkOpenGLImageMapper(publicAPI, model) {
     if (model.VBOBuildString !== toString) {
       // Build the VBOs
       const dims = image.getDimensions();
+      // Use norm16 for scalar texture if the extension is available
+      model.openGLTexture.setOglNorm16Ext(
+        model.context.getExtension('EXT_texture_norm16')
+      );
       if (iType === InterpolationType.NEAREST) {
         if (
           new Set([1, 3, 4]).has(numComp) &&
